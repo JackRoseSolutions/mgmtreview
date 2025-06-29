@@ -1,0 +1,305 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ISO 9001:2015 Management Review</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+    <script type="importmap">
+    {
+        "imports": {
+            "jszip": "https://esm.sh/jszip@3.10.1",
+            "./modules/": "./modules/"
+        }
+    }
+    </script>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg fixed-top py-3 shadow">
+        <div class="container">
+            <span class="navbar-brand mb-0 h1" style="color: darkred; font-weight: 500;">Tools</span>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#main-nav-collapse" aria-controls="main-nav-collapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="main-nav-collapse">
+                <div class="ms-auto d-flex flex-wrap gap-1 align-items-center" id="action-buttons-container">
+                    <button class="btn btn-secondary btn-sm" id="save-progress">Save Progress</button>
+                    <button class="btn btn-primary btn-sm" id="finalize-print">Finalize & Print</button>
+                    
+                    <span class="dropdown">
+                        <button class="btn btn-success btn-sm dropdown-toggle" type="button" id="export-menu-btn" data-bs-toggle="dropdown" aria-expanded="false">
+                            Export
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="export-menu-btn">
+                            <li><button class="dropdown-item" id="export-all-xlsx">Export to Excel</button></li>
+                            <li><button class="dropdown-item" id="export-ppt">Export to PowerPoint</button></li>
+                            <li><button class="dropdown-item" id="export-json">Export to JSON</button></li>
+                            <li><button class="dropdown-item" id="export-xml">Export to XML</button></li>
+                            <li><button class="dropdown-item" id="export-csv">Export to CSV (ZIP)</button></li>
+                            <li><button class="dropdown-item" id="export-single-csv">Export to CSV (Single File)</button></li>
+                        </ul>
+                    </span>
+
+                    <span class="dropdown">
+                         <button class="btn btn-warning btn-sm dropdown-toggle" type="button" id="import-menu-btn" data-bs-toggle="dropdown" aria-expanded="false">
+                            Import
+                        </button>
+                         <ul class="dropdown-menu" aria-labelledby="import-menu-btn">
+                            <li><button class="dropdown-item" id="import-json">Import from JSON</button></li>
+                            <li><button class="dropdown-item" id="import-xml">Import from XML</button></li>
+                            <li><button class="dropdown-item" id="import-csv">Import from CSV (ZIP)</button></li>
+                            <li><button class="dropdown-item" id="import-single-csv">Import from CSV (Single File)</button></li>
+                        </ul>
+                    </span>
+
+                    <span class="dropdown">
+                        <button class="btn btn-outline-info btn-sm dropdown-toggle" type="button" id="theme-menu-btn" data-bs-toggle="dropdown" aria-expanded="false">
+                            🎨
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="theme-menu-btn">
+                            <li><button class="dropdown-item theme-option" data-theme="default">Default (Black & Red)</button></li>
+                            <li><button class="dropdown-item theme-option" data-theme="corporate-blue">Corporate Blue</button></li>
+                            <li><button class="dropdown-item theme-option" data-theme="professional-grey">Professional Grey</button></li>
+                            <li><button class="dropdown-item theme-option" data-theme="modern-green">Modern Green</button></li>
+                            <li><button class="dropdown-item theme-option" data-theme="executive-purple">Executive Purple</button></li>
+                        </ul>
+                    </span>
+                    
+                    <button class="btn btn-outline-info btn-sm" id="release-notes-btn">📋</button>
+                    <button class="btn btn-danger btn-sm" id="clear-data">Clear All</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <header class="app-header text-white py-5 mb-5">
+        <div class="container d-flex align-items-center">
+            <img src="logo.png" alt="Company Logo" class="logo-header me-4">
+            <div class="flex-grow-1">
+                <h1 contenteditable="true" class="h3 mb-0">Management Review</h1>
+                <p class="lead mb-0 small" contenteditable="true">As per ISO 9001:2015 Quality Management System</p>
+            </div>
+        </div>
+    </header>
+
+    <div class="container my-5">
+        <div class="card mb-4" id="meeting-details">
+            <div class="card-header">
+                <h3 contenteditable="true">Meeting Details</h3>
+            </div>
+            <div class="card-body">
+                <form id="details-form">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="review-date" class="form-label">Review Date</label>
+                            <input type="date" class="form-control" id="review-date" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="review-location" class="form-label">Location / Platform</label>
+                            <input type="text" class="form-control" id="review-location" placeholder="e.g., Boardroom / MS Teams">
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="attendees" class="form-label">Attendees</label>
+                        <textarea class="form-control" id="attendees" rows="3" placeholder="List all attendees, one per line"></textarea>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="card mb-4" id="pest-analysis-card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h3 contenteditable="true">PEST Analysis</h3>
+                <button class="btn btn-success btn-sm" id="export-pest-btn">Export to Excel</button>
+            </div>
+            <div class="card-body">
+                <p class="card-text text-muted small">Analyze Political, Economic, Social, and Technological factors that could impact your organization.</p>
+                <div class="row">
+                    <div class="col-md-6 col-lg-3 mb-3">
+                        <div class="pest-item">
+                            <h5 class="pest-title political" contenteditable="true">Political</h5>
+                            <textarea id="pest-political" class="form-control" rows="8" placeholder="e.g., Government policies, trade restrictions, political stability..."></textarea>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3 mb-3">
+                        <div class="pest-item">
+                            <h5 class="pest-title economic" contenteditable="true">Economic</h5>
+                            <textarea id="pest-economic" class="form-control" rows="8" placeholder="e.g., Economic growth, inflation rates, exchange rates..."></textarea>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3 mb-3">
+                         <div class="pest-item">
+                            <h5 class="pest-title social" contenteditable="true">Social</h5>
+                            <textarea id="pest-social" class="form-control" rows="8" placeholder="e.g., Cultural trends, demographics, consumer behavior..."></textarea>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3 mb-3">
+                         <div class="pest-item">
+                            <h5 class="pest-title technological" contenteditable="true">Technological</h5>
+                            <textarea id="pest-technological" class="form-control" rows="8" placeholder="e.g., New technologies, automation, R&D activity..."></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card mb-4" id="swot-analysis-card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h3 contenteditable="true">SWOT Analysis</h3>
+                <button class="btn btn-success btn-sm" id="export-swot-btn">Export to Excel</button>
+            </div>
+            <div class="card-body">
+                 <p class="card-text text-muted small">Identify internal Strengths & Weaknesses and external Opportunities & Threats.</p>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <div class="swot-item">
+                            <h5 class="swot-title strengths" contenteditable="true">Strengths</h5>
+                            <p class="swot-subtitle">Internal / Positive</p>
+                            <textarea id="swot-strengths" class="form-control" rows="6" placeholder="e.g., Strong brand, skilled workforce, unique technology..."></textarea>
+                        </div>
+                    </div>
+                     <div class="col-md-6 mb-3">
+                        <div class="swot-item">
+                            <h5 class="swot-title weaknesses" contenteditable="true">Weaknesses</h5>
+                            <p class="swot-subtitle">Internal / Negative</p>
+                            <textarea id="swot-weaknesses" class="form-control" rows="6" placeholder="e.g., High debt, weak supply chain, outdated tech..."></textarea>
+                        </div>
+                    </div>
+                     <div class="col-md-6 mb-3">
+                        <div class="swot-item">
+                            <h5 class="swot-title opportunities" contenteditable="true">Opportunities</h5>
+                            <p class="swot-subtitle">External / Positive</p>
+                            <textarea id="swot-opportunities" class="form-control" rows="6" placeholder="e.g., New markets, favorable regulations, tech advancements..."></textarea>
+                        </div>
+                    </div>
+                     <div class="col-md-6 mb-3">
+                        <div class="swot-item">
+                            <h5 class="swot-title threats" contenteditable="true">Threats</h5>
+                            <p class="swot-subtitle">External / Negative</p>
+                            <textarea id="swot-threats" class="form-control" rows="6" placeholder="e.g., New competitors, economic downturn, changing customer needs..."></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card mb-4" id="issues-register-card">
+            <div class="card-header">
+                <h3 contenteditable="true">External & Internal Issues Register</h3>
+            </div>
+            <div class="card-body">
+                <div id="issues-register-header" class="d-none d-lg-grid">
+                    <span>Issue Description</span>
+                    <span>Type</span>
+                    <span>Interested Party</span>
+                    <span>Date Identified</span>
+                    <span>Risk / Opp.</span>
+                    <span>Actions Taken</span>
+                    <span>Owner</span>
+                    <span>Status</span>
+                    <span></span> <!-- for delete button -->
+                </div>
+                <div id="issues-container">
+                    <p id="issues-placeholder" class="text-muted">No issues added yet. Click "+ Add Issue" to start building your register.</p>
+                </div>
+                <div class="mt-3 action-buttons">
+                    <button class="btn btn-outline-secondary btn-sm" id="add-issue-btn">+ Add Issue</button>
+                    <button class="btn btn-success btn-sm float-end" id="export-issues-btn">Export to Excel</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="card mb-4 d-print-none" id="summary-card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h3 contenteditable="true">Action Item Summary</h3>
+                <span class="badge bg-primary rounded-pill" id="action-item-count">0</span>
+            </div>
+            <div class="card-body">
+                <p id="summary-placeholder" class="text-muted">No action items added yet. They will appear here for easy tracking.</p>
+                <div id="action-item-summary-container"></div>
+            </div>
+        </div>
+
+        <div class="card mb-4" id="meeting-summary-card">
+            <div class="card-header">
+                <h3 contenteditable="true">Meeting Summary & Conclusions</h3>
+            </div>
+            <div class="card-body">
+                <div class="mb-3">
+                    <label for="meeting-summary" class="form-label"><strong>Overall Summary</strong></label>
+                    <textarea class="form-control" id="meeting-summary" rows="8" placeholder="Provide an overall summary of the management review meeting, key decisions made, major findings, and strategic directions agreed upon..."></textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="key-decisions" class="form-label"><strong>Key Decisions Made</strong></label>
+                    <textarea class="form-control" id="key-decisions" rows="5" placeholder="List the major decisions made during this management review..."></textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="next-steps" class="form-label"><strong>Next Steps & Follow-up Actions</strong></label>
+                    <textarea class="form-control" id="next-steps" rows="5" placeholder="Document the immediate next steps and follow-up actions required..."></textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="review-effectiveness" class="form-label"><strong>Management Review Effectiveness</strong></label>
+                    <textarea class="form-control" id="review-effectiveness" rows="4" placeholder="Assess the effectiveness of this management review process and note any improvements for future reviews..."></textarea>
+                </div>
+            </div>
+        </div>
+
+        <div class="card mb-4" id="sign-off-card">
+            <div class="card-header">
+                <h3 contenteditable="true">Meeting Sign-Off & Approval</h3>
+            </div>
+            <div class="card-body">
+                <p class="text-muted mb-4">The following attendees acknowledge that they have reviewed and approved the contents of this management review:</p>
+                
+                <div class="row mb-4">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label"><strong>Top Management Representative</strong></label>
+                        <input type="text" class="form-control mb-2" id="signoff-name-1" placeholder="Name and Title">
+                        <div class="signature-box">
+                            <label class="form-label">Signature:</label>
+                            <div class="signature-line"></div>
+                        </div>
+                        <input type="date" class="form-control mt-2" id="signoff-date-1">
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label"><strong>Quality Manager</strong></label>
+                        <input type="text" class="form-control mb-2" id="signoff-name-2" placeholder="Name and Title">
+                        <div class="signature-box">
+                            <label class="form-label">Signature:</label>
+                            <div class="signature-line"></div>
+                        </div>
+                        <input type="date" class="form-control mt-2" id="signoff-date-2">
+                    </div>
+                </div>
+
+                <div id="additional-signoffs">
+                    <!-- Additional sign-off fields will be added here -->
+                </div>
+
+                <button class="btn btn-outline-secondary btn-sm" id="add-signoff-btn">+ Add Additional Sign-off</button>
+            </div>
+        </div>
+
+        <h2 class="mb-3" contenteditable="true">Agenda & Minutes</h2>
+        <div class="accordion" id="management-review-agenda">
+            <!-- Agenda items will be injected here by JavaScript -->
+        </div>
+
+        <div class="mt-5 text-center action-buttons d-print-none" style="display: none !important;">
+            <input type="file" id="import-json-file" accept=".json" style="display: none;">
+            <input type="file" id="import-xml-file" accept=".xml" style="display: none;">
+            <input type="file" id="import-csv-file" accept=".zip,application/zip,application/x-zip-compressed" style="display: none;">
+            <input type="file" id="import-single-csv-file" accept=".csv,text/csv" style="display: none;">
+        </div>
+         <footer class="text-center mt-5 text-muted d-print-none">
+            <p><small>Powered by Collaborative AI</small></p>
+        </footer>
+    </div>
+
+    <div id="toast-container"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
+    <script src="https://unpkg.com/pptxgenjs@3.12.0/dist/pptxgen.bundle.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script type="module" src="script.js"></script>
+</body>
+</html>

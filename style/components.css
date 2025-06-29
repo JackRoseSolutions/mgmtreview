@@ -1,0 +1,71 @@
+/* Component-specific styles */
+@import 'theme.css';
+@import 'layout.css';
+@import 'forms.css';
+@import 'buttons.css';
+@import 'tables.css';
+@import 'print.css';
+
+/* Action Items */
+.action-item {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr auto;
+    gap: 1rem;
+    align-items: center;
+    padding: 1.5rem;
+    border-radius: 12px;
+    background: rgba(255,255,255,0.95);
+    border: 1px solid rgba(0,0,0,0.05);
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+.action-item:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+}
+
+/* Toast Notifications */
+#toast-container {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1055;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.toast-notification {
+    background: linear-gradient(135deg, var(--primary-gradient-start) 0%, var(--primary-gradient-end) 100%);
+    color: var(--text-light);
+    padding: 1rem 2rem;
+    border-radius: 50px;
+    margin-bottom: 0.5rem;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+    font-weight: 500;
+    border: 1px solid rgba(255,255,255,0.1);
+    backdrop-filter: blur(10px);
+}
+
+.toast-notification.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Professional Status Badges */
+.status-badge {
+    color: var(--text-light);
+    font-weight: 600;
+    padding: 0.5em 1em;
+    font-size: 0.8rem;
+    border-radius: 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}

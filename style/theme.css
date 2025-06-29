@@ -1,0 +1,71 @@
+/* Theme Variables and Base Theme Styles */
+:root {
+    --primary-color: #000000;
+    --primary-gradient-start: #000000;
+    --primary-gradient-end: #1a1a1a;
+    --secondary-color: darkred;
+    --secondary-gradient-start: darkred;
+    --secondary-gradient-end: #8b0000;
+    --accent-color: #8b0000;
+    --text-light: white;
+    --shadow-color: rgba(0,0,0,0.3);
+    --focus-shadow: rgba(139, 0, 0, 0.15);
+    --hover-shadow: rgba(139, 0, 0, 0.4);
+}
+
+body.theme-corporate-blue {
+    --primary-color: #003366;
+    --primary-gradient-start: #003366;
+    --primary-gradient-end: #004080;
+    --secondary-color: #0066cc;
+    --secondary-gradient-start: #0066cc;
+    --secondary-gradient-end: #004d99;
+    --accent-color: #004d99;
+    --text-light: white;
+    --shadow-color: rgba(0,51,102,0.3);
+    --focus-shadow: rgba(0,102,204,0.15);
+    --hover-shadow: rgba(0,102,204,0.4);
+}
+
+body.theme-professional-grey {
+    --primary-color: #2c3e50;
+    --primary-gradient-start: #2c3e50;
+    --primary-gradient-end: #34495e;
+    --secondary-color: #5d6d7e;
+    --secondary-gradient-start: #5d6d7e;
+    --secondary-gradient-end: #4a5568;
+    --accent-color: #4a5568;
+    --text-light: white;
+    --shadow-color: rgba(44,62,80,0.3);
+    --focus-shadow: rgba(93,109,126,0.15);
+    --hover-shadow: rgba(93,109,126,0.4);
+}
+
+body.theme-modern-green {
+    --primary-color: #1b4332;
+    --primary-gradient-start: #1b4332;
+    --primary-gradient-end: #2d5a47;
+    --secondary-color: #2f5233;
+    --secondary-gradient-start: #2f5233;
+    --secondary-gradient-end: #1e3a20;
+    --accent-color: #1e3a20;
+    --text-light: white;
+    --shadow-color: rgba(27,67,50,0.3);
+    --focus-shadow: rgba(47,82,51,0.15);
+    --hover-shadow: rgba(47,82,51,0.4);
+}
+
+body.theme-executive-purple {
+    --primary-color: #4a148c;
+    --primary-gradient-start: #4a148c;
+    --primary-gradient-end: #6a1b9a;
+    --secondary-color: #7b1fa2;
+    --secondary-gradient-start: #7b1fa2;
+    --secondary-gradient-end: #4a148c;
+    --accent-color: #4a148c;
+    --text-light: white;
+    --shadow-color: rgba(74,20,140,0.3);
+    --focus-shadow: rgba(123,31,162,0.15);
+    --hover-shadow: rgba(123,31,162,0.4);
+}
+
